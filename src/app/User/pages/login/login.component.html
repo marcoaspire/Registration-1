@@ -1,0 +1,39 @@
+<!-- Section: Design Block -->
+
+<div class="card">
+  <h2 class="fw-bold mb-2">Log in</h2>
+  <form autocomplete="off" [formGroup]='myForm' (ngSubmit)="login()">
+    <div class="row mt-3">
+      <div class="col">
+        <span class="form-label">Email
+            <span class="red">*</span>
+        </span>
+        <input class="form-control"
+              type="text"
+              formControlName="EmailAddress"
+              placeholder="Type your email">
+              <span class="form-text red" *ngIf="isValid('EmailAddress')">{{emailError}}</span>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <span class="form-label">Password
+        <span class="red">*</span>
+      </span>
+      <input class="form-control"
+            type="text"
+            formControlName="Password"
+            placeholder="Type your password">
+    </div>
+
+
+    <div class="row justify-content-end">
+      <button class="btn btn-primary" type="submit" [disabled]='myForm.invalid || myForm.pending'>
+          Submit
+      </button>
+    </div>
+  </form>
+</div>
+<pre>{{myForm.value| json}}</pre>
+<pre>{{myForm.valid| json}}</pre>
+<pre>{{myForm.pending| json}}</pre>

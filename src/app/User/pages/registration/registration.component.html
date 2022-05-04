@@ -1,0 +1,256 @@
+<!-- Section: Design Block -->
+<section class="">
+  <!-- Background image -->
+  <div class="p-5 bg-image" style="
+        background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
+        height: 200px;
+        "></div>
+  <!-- Background image -->
+
+  <div class="card mx-4 mx-md-5 shadow-5-strong">
+    <div class="card-body py-5 px-md-5">
+      <h2>Sign up now</h2>
+      <form autocomplete="off" [formGroup]='myForm' (ngSubmit)="register()">
+        <div class="row mt-3">
+          <div class="col">
+            <span class="form-label">First Name<span class="red">*</span>
+                </span>
+                <input class="form-control"
+                      type="text"
+                      formControlName="FirstName"
+                      placeholder="Type your firstName">
+                <span class="form-text red" *ngIf="isValid('FirstName')">{{firstNameError}}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <span class="form-label">Middle Name
+            </span>
+            <input class="form-control"
+                  type="text"
+                  formControlName="MiddleName"
+                  placeholder="Type your firstName">
+            <span class="form-text red" *ngIf="isValid('MiddleName')">{{middleError}}</span>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <span class="form-label">Last Name
+                <span class="red">*</span>
+            </span>
+            <input class="form-control"
+                  type="text"
+                  formControlName="LastName"
+                  placeholder="Type your lastName">
+            <span class="form-text red" *ngIf="isValid('LastName')">{{lastNameError}}</span>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-6">
+            <span class="form-label">Telephone
+                <span class="red">*</span>
+            </span>
+            <input class="form-control"
+                  type="tel"
+                  formControlName="MobilePhone"
+                  placeholder="Type your telephone">
+            <span class="form-text red" *ngIf="isValid('MobilePhone')">{{phoneError}}</span>
+          </div>
+          <div class="col-6">
+            <span class="form-label">Email
+                <span class="red">*</span>
+            </span>
+            <input class="form-control"
+                  type="text"
+                  formControlName="EmailAddress"
+                  placeholder="Type your email">
+                  <span class="form-text red" *ngIf="isValid('EmailAddress')">{{emailError}}</span>
+          </div>
+
+        </div>
+        <div class="row mt-3">
+          <div class="col-6">
+            <span class="form-label">Last 4 Digits SSN/ID
+                <span class="red">*</span>
+            </span>
+            <input class="form-control"
+                  type="text"
+                  formControlName="Last4DigitsSSN"
+                  placeholder="Type the last 4 Digits SSN">
+            <span class="form-text red" *ngIf="isValid('Last4DigitsSSN')">{{snnError}}</span>
+          </div>
+          <div class="col-6">
+            <span class="form-label">Enrolled date
+                <span class="red">*</span>
+            </span>
+            <input class="form-control"
+                  type="date"
+                  formControlName="EnrolledDate"
+                  >
+            <span class="form-text red" *ngIf="isValid('EnrolledDate')">{{dateError}}</span>
+          </div>
+        </div>
+
+
+        <div class="row mt-3">
+          <div class="col-6">
+            <span class="form-label">Password
+                <span class="red">*</span>
+            </span>
+            <input class="form-control"
+                  type="text"
+                  formControlName="Password"
+                  placeholder="Type your password">
+            <span class="form-text red" *ngIf="isValid('Password')">{{passwordError}}</span>
+          </div>
+          <div class="col-6">
+            <span class="form-label">Confirm Password
+                <span class="red">*</span>
+            </span>
+            <input class="form-control"
+                  type="text"
+                  formControlName="ConfirmPassword"
+                  >
+           <span class="form-text red" *ngIf="isValid('ConfirmPassword')">{{passwordConfirmError}}</span>
+          </div>
+        </div>
+
+
+
+
+        <div class="row mt-3">
+          <div class="col">
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" formControlName='TermsandConditions'>
+              <label class="form-check-label">I Agree To Terms of Service</label>
+              <span class="form-text red" *ngIf="isValid('TermsandConditions')"> You must agree with the Terms and Conditions</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-end">
+          <button class="btn btn-primary" type="submit" [disabled]='myForm.invalid || myForm.pending'>
+            Submit
+          </button>
+        </div>
+        <!-- <div class="flex-col-c p-t-60">
+          <a routerLink="/auth/login" class="txt2">
+             Sign in
+          </a>
+        </div> -->
+      </form>
+
+    </div>
+  </div>
+</section>
+<!-- Section: Design Block -->
+
+<!-- <div class="card">
+  <h2 class="fw-bold mb-2">Sign up now</h2>
+  <form autocomplete="off" [formGroup]='myForm' (ngSubmit)="register()">
+    <div class="row mt-3">
+      <div class="col">
+        <span class="form-label">First Name<span class="red">*</span>
+            </span>
+            <input class="form-control"
+                  type="text"
+                  formControlName="FirstName"
+                  placeholder="Type your firstName">
+            <span class="form-text red" *ngIf="isValid('FirstName')">* First Name is required</span>
+            {{isValid('FirstName')}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span class="form-label">Middle Name
+        </span>
+        <input class="form-control"
+              type="text"
+              formControlName="MiddleName"
+              placeholder="Type your firstName">
+        <span class="form-text red" *ngIf="isValid('MiddleName')">{{middleError}}</span>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span class="form-label">Last Name
+            <span class="red">*</span>
+        </span>
+        <input class="form-control"
+              type="text"
+              formControlName="LastName"
+              placeholder="Type your lastName">
+        <span class="form-text red" *ngIf="isValid('LastName')">{{lastNameError}}</span>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-6">
+        <span class="form-label">Telephone
+            <span class="red">*</span>
+        </span>
+        <input class="form-control"
+              type="number"
+              formControlName="MobilePhone"
+              placeholder="Type your telephone">
+        <span class="form-text red" *ngIf="isValid('MobilePhone')">Error phone</span>
+      </div>
+      <div class="col-6">
+        <span class="form-label">Email
+            <span class="red">*</span>
+        </span>
+        <input class="form-control"
+              type="text"
+              formControlName="EmailAddress"
+              placeholder="Type your email">
+              <span class="form-text red" *ngIf="isValid('EmailAddress')">{{emailError}}</span>
+      </div>
+
+    </div>
+    <div class="row mt-3">
+      <div class="col-6">
+        <span class="form-label">Last 4 Digits SSN/ID
+            <span class="red">*</span>
+        </span>
+        <input class="form-control"
+              type="text"
+              formControlName="Last4DigitsSSN"
+              placeholder="Type the last 4 Digits SSN">
+        <span class="form-text red" *ngIf="isValid('Last4DigitsSSN')">{{snnError}}</span>
+      </div>
+      <div class="col-6">
+        <span class="form-label">Enrolled date
+            <span class="red">*</span>
+        </span>
+        <input class="form-control"
+              type="date"
+              formControlName="EnrolledDate"
+              >
+        <span class="form-text red" *ngIf="isValid('EnrolledDate')">Date cannot</span>
+
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col">
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" formControlName='TermsandConditions'>
+          <label class="form-check-label">I Agree To Terms of Service</label>
+          <span class="form-text red" *ngIf="isValid('TermsandConditions')"> You must agree with the Terms and Conditions</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row justify-content-end">
+      <button class="btn btn-primary" type="submit" [disabled]='myForm.invalid || myForm.pending'>
+          Submit
+      </button>
+    </div>
+  </form>
+</div> -->
+<pre>{{myForm.value| json}}</pre>
+<pre>{{myForm.valid| json}}</pre>
+<pre>{{myForm.pending| json}}</pre>
