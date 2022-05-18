@@ -2,11 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { EmployeeServiceService } from '../../services/employee-service.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styles: [
+    `
+      .card {
+
+        padding: 30px 40px;
+        margin-top: 60px;
+        margin-bottom: 60px;
+        border: none !important;
+        box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
+        
+        /*
+        margin-top: 150px;
+        background: hsla(0, 0%, 100%, 0.8);
+        backdrop-filter: blur(30px);
+        */
+      }
+    `
   ]
 })
 export class LoginComponent implements OnInit {
@@ -17,7 +35,9 @@ export class LoginComponent implements OnInit {
 
   });
 
-  constructor(private fb:FormBuilder,private registerService:RegisterService) { }
+  constructor(private fb:FormBuilder,private registerService:RegisterService, private router:Router,
+        private employeeService:EmployeeServiceService
+    ) { }
 
   ngOnInit(): void {
   }
@@ -36,7 +56,9 @@ export class LoginComponent implements OnInit {
 
         if (resp.ok===true)
         {
-          //this.router.navigateByUrl('/dashboard');
+          
+          this.employeeService.setUser(resp.id);
+          this.router.navigateByUrl('/employees');
           console.log("redirect to home");
 
         }

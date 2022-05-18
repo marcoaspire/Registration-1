@@ -39,16 +39,16 @@ export class RegistrationComponent implements OnInit {
 
 
    myForm:FormGroup = this.fb.group({
-      FirstName: [ 'Marco', [Validators.minLength(2), Validators.required,Validators.pattern(this.stringPattern)] ],
+      FirstName: [ 'Selene', [Validators.minLength(2), Validators.required,Validators.pattern(this.stringPattern)] ],
       MiddleName: ['',[Validators.pattern(this.stringPattern),Validators.minLength(2)] ],
-      LastName: ['Pacheco', [Validators.required,Validators.pattern(this.stringPattern) ] ],
-      EmailAddress: ['marco7@gmail.com', [Validators.email,Validators.required], [this.emailValidator]  ],
-      MobilePhone:     ['2223045614',[Validators.minLength(10),Validators.pattern(this.phonePattern)]],
+      LastName: ['Moreno', [Validators.required,Validators.pattern(this.stringPattern) ] ],
+      EmailAddress: ['selene@gmail.com', [Validators.email,Validators.required], [this.emailValidator]  ],
+      MobilePhone:     ['2221456987',[Validators.minLength(10),Validators.pattern(this.phonePattern)]],
       Last4DigitsSSN: ['1478',[Validators.required,Validators.minLength(4),Validators.maxLength(4),Validators.pattern(this.numberPattern)]],
      TermsandConditions : ['',Validators.requiredTrue ],
      EnrolledDate: [this.today,[Validators.required,isValidDate ]],
      Password        : ['123456',[Validators.required,Validators.minLength(6)]],
-     ConfirmPassword : ['123',[Validators.required]],
+     ConfirmPassword : ['123456',[Validators.required]],
  },{ validators: matchPassword });
 
 

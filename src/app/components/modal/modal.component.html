@@ -1,0 +1,71 @@
+<div class="background-modal-image animated fadeIn"
+[class.hide]="employeeService.hideModal"
+>
+    <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel1">Update User Data</h4>
+                    <button type="button" 
+                        class="close" 
+                        data-dismiss="modal" 
+                        (click)="closeModal()"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        
+                        
+                        <!-- FORM UPdate user -->
+                        <div class="card">
+                            <div class="card-body">
+                                <form class="form p-t-20" [formGroup]="myForm" (ngSubmit)="upload()">
+                                    <div class="form-group">
+                                        <label for="exampleInputuname">User Name</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                                            <input type="text" class="form-control" 
+                                                formControlName="FirstName"
+                                                id="exampleInputuname" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email address</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="ti-email"></i></div>
+                                            <input type="email" class="form-control" 
+                                            formControlName="EmailAddress"
+                                            
+                                            id="exampleInputEmail1" placeholder="Enter email">
+                                        </div>
+                                    </div>
+                                    <!-- <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10"
+                                        [disabled]="myForm.invalid"
+                                    >
+                                        <i class="fa fa-save"></i>
+                                        Save</button> -->
+                                </form>
+                            </div>
+                        </div>
+                        
+    
+                    </div>
+                    
+                    <br>
+                    <br>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" 
+                        (click)="closeModal()"
+                        data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary" (click)="upload()">Update image</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
