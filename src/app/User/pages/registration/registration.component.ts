@@ -4,6 +4,7 @@ import { RegisterService } from '../../services/register.service';
 import { EmailValidatorService } from '../../services/email-validator.service';
 import Swal from 'sweetalert2';
 import { isValidDate, matchPassword } from '../../services/validations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -177,7 +178,7 @@ export class RegistrationComponent implements OnInit {
 
 
   constructor(private fb:FormBuilder,private registerService:RegisterService,
-              private emailValidator: EmailValidatorService
+              private emailValidator: EmailValidatorService,private router:Router
     ) { }
 
   ngOnInit(): void {
@@ -206,6 +207,8 @@ export class RegistrationComponent implements OnInit {
             //user saved
             //alert('User saved');
             Swal.fire('User saved');
+          this.router.navigateByUrl('/login');
+
          }
          else {
            //show error msg

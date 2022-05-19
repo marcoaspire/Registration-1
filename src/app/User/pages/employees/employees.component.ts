@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
+import { SalaryInputComponent } from 'src/app/components/salary-input/salary-input.component';
+
 import Swal from 'sweetalert2';
 import { Employee, User } from '../../interfaces/interfaces';
-import { EmployeeServiceService } from '../../services/employee-service.service';
+import { EmployeeService } from '../../services/employee-service.service';
 
 @Component({
   selector: 'app-employees',
@@ -39,28 +41,38 @@ import { EmployeeServiceService } from '../../services/employee-service.service'
     `
   ]
 })
+
 export class EmployeesComponent implements OnInit {
 
+  @Output() onLoadUser:EventEmitter<User> = new EventEmitter(); 
+
+  //@ViewChildren('txtSalary') txtSalary!:QueryList<SalaryInputComponent>;
   public users!:Employee[];
   public usersAux!:Employee[];
   public loading:boolean=true;
   public total:number=0;
+  public k:boolean=false;
+  constructor(public employeeService: EmployeeService,private element: ElementRef) { }
 
-  constructor(public employeeService: EmployeeServiceService) { }
-
-  async ngOnInit(): Promise<void>{
+  ngOnInit():void{
     this.loadUsers();
-
+    
     //TODO:GET USERID AFTER THEY LOGGED IN
+    
+    if (localStorage.getItem('id'))
+    {
+      const id=parseInt(localStorage.getItem('id')|| "0") ;
+      this.employeeService.setAuth(id);
 
-    //console.log(this.employeeService.id);
+    }
+    else{
+      this.logout();
+    }
+    
+
+
 
   }
-  /*
-  onSubmit(form: NgForm) {
-    this.insertRecord(form);
-  }
-  */
   
   search(term:string){
 
@@ -71,31 +83,38 @@ export class EmployeesComponent implements OnInit {
     return this.employeeService.search(term)
       .subscribe( (users) => {
         this.users= users;
-        console.log("dsaasda");
-        
-      }
-        
-      );  
+      });  
   }
   
   changeRole(user:Employee)
   {
-    
-    
     this.employeeService.saveEmployee(user)
-      .subscribe(console.log);
+      .subscribe({
+        next: res => Swal.fire('Role uploaded', '', 'success'),
+        error: err => Swal.fire('Error',err.error.msg,'error')
+      });
     
   }
+  updateSalary(user:Employee,salary:string)
+  {
+    //this.txtSalary.toArray()
+    console.log(user.user.emailAddress);
+    console.log(salary);  
+  }
+
 
   deleteUser(user:User){
+    const e = this.employeeService.auth;
     console.log(user.userID);
-    //console.log(this.employeeService.id);
-    /*
+    console.log(e.user);
+    
     if (user.userID === this.employeeService.id)
     {
       return Swal.fire('Error','You cannot delete yourself','error');
     } 
-    */
+    
+
+    
     return Swal.fire({
       title: `Are you sure you want to delete "${user.firstName}"?`,
       text: "You won't be able to revert this!",
@@ -126,6 +145,7 @@ export class EmployeesComponent implements OnInit {
         });
       }
     })
+    
       
   }
 
@@ -142,19 +162,23 @@ export class EmployeesComponent implements OnInit {
       //this.usersAux=users;
       this.loading=false;
       console.log(users);
-      console.log(this.total);
-      
-      
+      console.log("total="+this.total);
     });
+    
     
   }
 
 
   openModal(employee:Employee){
     console.log("modal debe estar " + employee.user.firstName);
-    
     this.employeeService.openModal(employee.user);
   }
+
+  logout(){
+    this.employeeService.logout();
+  }
+
+
 
 
 }

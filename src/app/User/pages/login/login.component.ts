@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { EmployeeServiceService } from '../../services/employee-service.service';
+import { EmployeeService } from '../../services/employee-service.service';
 
 @Component({
   selector: 'app-login',
@@ -30,13 +30,13 @@ import { EmployeeServiceService } from '../../services/employee-service.service'
 export class LoginComponent implements OnInit {
   public numberPattern:string ='([0-9]+)';
   myForm:FormGroup = this.fb.group({
-    EmailAddress    : ['marco7@gmail.com', [Validators.email,Validators.required] ],
+    EmailAddress    : ['juan@gmail.com', [Validators.email,Validators.required] ],
     Password        : ['123456',[Validators.required,Validators.minLength(6)]],
 
   });
 
   constructor(private fb:FormBuilder,private registerService:RegisterService, private router:Router,
-        private employeeService:EmployeeServiceService
+        private employeeService:EmployeeService
     ) { }
 
   ngOnInit(): void {
@@ -56,8 +56,11 @@ export class LoginComponent implements OnInit {
 
         if (resp.ok===true)
         {
+          console.log(resp);
           
-          this.employeeService.setUser(resp.id);
+          this.employeeService.setAuth(resp.id);
+          localStorage.setItem('id', resp.id);
+
           this.router.navigateByUrl('/employees');
           console.log("redirect to home");
 

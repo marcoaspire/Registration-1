@@ -1,8 +1,8 @@
-import { Component, ComponentRef, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Employee } from 'src/app/User/interfaces/interfaces';
+import { Employee, User } from 'src/app/User/interfaces/interfaces';
 import { EmailValidatorService } from 'src/app/User/services/email-validator.service';
-import { EmployeeServiceService } from 'src/app/User/services/employee-service.service';
+import { EmployeeService} from 'src/app/User/services/employee-service.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styles: [
   ]
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent implements OnInit,OnDestroy {
   public myForm!:FormGroup;
   
   public stringPattern:string ='([a-zA-Z]+)';
@@ -20,21 +20,29 @@ export class ModalComponent implements OnInit {
 
   
 
-  @Input() item!: Employee; 
-  constructor(public employeeService: EmployeeServiceService,private fb:FormBuilder,
+  @Input() user!: User; 
+  constructor(public employeeService: EmployeeService,private fb:FormBuilder,
     private emailValidator: EmailValidatorService
-    ) { }
+    ) { 
+      
+    }
+  ngOnDestroy(): void {
+    console.log("destruido modal");
+
+  }
 
   ngOnInit(): void {
-    console.log("Init modal:"+this.item.user.firstName);
+    console.log("creado modal");
+    this.user= this.employeeService.user;
+    
         
     this.myForm= this.fb.group({
-      FirstName     : [this.item.user.firstName,Validators.required],
-      MiddleName    : [this.item.user.middleName,[Validators.pattern(this.stringPattern),Validators.minLength(2)] ],
-      LastName      : [this.item.user.lastName, [Validators.required,Validators.pattern(this.stringPattern) ] ],
-      EmailAddress  : [this.item.user.emailAddress, [Validators.email,Validators.required], [this.emailValidator]  ],
-      MobilePhone   : [this.item.user.mobilePhone,[Validators.minLength(10),Validators.pattern(this.phonePattern)]],
-      Last4DigitsSSN: [this.item.user.last4DigitsSSN,[Validators.required,Validators.minLength(4),Validators.maxLength(4),Validators.pattern(this.numberPattern)]],
+      FirstName     : [this.user.firstName,Validators.required],
+      MiddleName    : [this.user.middleName,[Validators.pattern(this.stringPattern),Validators.minLength(2)] ],
+      LastName      : [this.user.lastName, [Validators.required,Validators.pattern(this.stringPattern) ] ],
+      EmailAddress  : [this.user.emailAddress, [Validators.email,Validators.required], [this.emailValidator]  ],
+      MobilePhone   : [this.user.mobilePhone,[Validators.minLength(10),Validators.pattern(this.phonePattern)]],
+      Last4DigitsSSN: [this.user.last4DigitsSSN,[Validators.required,Validators.minLength(4),Validators.maxLength(4),Validators.pattern(this.numberPattern)]],
       //Password        : ['123456',[Validators.required,Validators.minLength(6)]],
       //ConfirmPassword : ['123456',[Validators.required]],
   
@@ -43,29 +51,28 @@ export class ModalComponent implements OnInit {
   }
 
   closeModal(){
-    console.log(this.item.user.userID);
     this.employeeService.closeModal();
     
   }
   upload(){
-    console.log('save');
-    console.log(this.item.user.userID);
-
-    console.log(this.myForm.value);
-    this.employeeService.updateUser(this.item.user.userID,this.myForm.value)
+    this.employeeService.updateUser(this.user.userID,this.myForm.value)
     .subscribe({
       //{results: {…}, msg: 'user updated'} alert
       next: res=>{
-        console.log(res);
-        
+        Swal.fire(
+          'Updated!',
+          'User has been updated.',
+          'success'
+        ); 
+        this.closeModal();
       },
-      error: err => console.log(err)
+      error: err => Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!'
+      }) 
       
     });
-
-
-    
-    
   }
 
 }

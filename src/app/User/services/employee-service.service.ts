@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { lastValueFrom, of } from 'rxjs';
+import { Router } from '@angular/router';
+import { lastValueFrom, of, Subject } from 'rxjs';
 import { map, catchError,tap,delay } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
@@ -10,14 +11,28 @@ const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeServiceService {
+export class EmployeeService {
 
-  public user!:any;
+  public auth!:Employee;
+
+  public user!:User;
   private _hideModal:boolean = true;
   //public id2!:number;
 
+
+  /** Communication */
+  // Observable string sources
+  private emitChangeSource = new Subject<any>();
+  // Observable string streams
+  changeEmitted$ = this.emitChangeSource.asObservable();
+  // Service message commands
+  emitChange(change: any) {
+      this.emitChangeSource.next(change);
+  }
+ /** Communication */
+
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private router:Router) { }
 
 
   get hideModal(){
@@ -25,7 +40,7 @@ export class EmployeeServiceService {
   }
 
   get id():number{
-    return this.user.userID|| -1;
+    return this.auth.user.userID|| -1;
   }
 
   search(term:string){
@@ -41,15 +56,12 @@ export class EmployeeServiceService {
     );
   }
 
-  async setUser(id:number){
+  async setAuth(id:number){
     //http://localhost:63253/api/User/4
-    const end=this.http.get<Employee>(`${base_url}/api/User/${id}`);
+    const end=this.http.get<any>(`${base_url}/api/User/${id}`);
     return await lastValueFrom(end)
       .then(resp => {
-        this.user=resp;
-        console.log(resp);
-        console.log(this.user);
-        
+        this.auth=resp.user;
       });
     /*
     .subscribe({
@@ -110,27 +122,33 @@ export class EmployeeServiceService {
   }
 
 
-  openModal(
-    user:User
-  ){
-    console.log("recibido que debe estar en modal:" +user.firstName);
-    
-    console.log(user);
-    
+  openModal(user:User){
+    //create modal and assing a user
     this._hideModal=false;
-
-    //TODO: cREATE A MODAL
-    
-
+    this.user=user;
 
   }
 
 
+  
   closeModal(){
-    console.log("ocultando modal");
+    console.log("cerrando modal");
     
     this._hideModal=true;
+
+    
   }
+
+  logout(){
+    localStorage.removeItem('id');
+    this.router.navigateByUrl('/login');
+    /*
+    this.ngZone.run(()=>{
+
+    });
+    */
+  }
+
 
 
 }

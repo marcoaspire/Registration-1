@@ -1,3 +1,14 @@
 
 <!-- <app-registration></app-registration> -->
-<router-outlet></router-outlet>
+<!-- <app-modal [item]="user"></app-modal> -->
+<div   >
+    <router-outlet></router-outlet>
+
+    <div *ngIf="!employeeService.hideModal">
+        <app-modal>
+        </app-modal>
+
+    </div>
+
+    
+</div>
