@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
 import { SalaryInputComponent } from 'src/app/components/salary-input/salary-input.component';
@@ -55,8 +55,10 @@ export class EmployeesComponent implements OnInit {
   public usersAux!:Employee[];
   public loading:boolean=true;
   public total:number=0;
-  public k:boolean=false;
   constructor(public employeeService: EmployeeService,private element: ElementRef) { }
+  
+  
+  
 
   ngOnInit():void{
     this.loadUsers();
@@ -73,10 +75,13 @@ export class EmployeesComponent implements OnInit {
       this.logout();
     }
     
+    
 
 
 
   }
+
+
   
   search(term:string){
 
@@ -99,12 +104,7 @@ export class EmployeesComponent implements OnInit {
       });
     
   }
-  updateSalary(user:Employee,salary:string)
-  {
-    //this.txtSalary.toArray()
-    console.log(user.user.emailAddress);
-    console.log(salary);  
-  }
+  
 
 
   deleteUser(user:User){
@@ -153,7 +153,7 @@ export class EmployeesComponent implements OnInit {
       
   }
 
-  loadUsers()
+ loadUsers()
   {
     this.loading=true;
 
@@ -163,18 +163,16 @@ export class EmployeesComponent implements OnInit {
     //.subscribe( ({user,role,salary}) =>{
       this.total=users.length;
       this.users=users;
-      //this.usersAux=users;
+      this.usersAux=users;
       this.loading=false;
-      console.log(users);
-      console.log("total="+this.total);
     });
-    
+
+   
     
   }
 
 
   openModal(employee:Employee){
-    console.log("modal debe estar " + employee.user.firstName);
     this.employeeService.openModal(employee.user);
   }
 
@@ -182,6 +180,10 @@ export class EmployeesComponent implements OnInit {
     this.employeeService.logout();
   }
 
+  refreshScreen(userUpdated:boolean){
+    if (userUpdated)
+      this.loadUsers();
+  }
 
 
 

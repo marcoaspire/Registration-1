@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="container pt-5">
+<div class="pt-5">
     <div class="row animated fade-in">
         <div class="col-12">
             <div class="card">
@@ -32,15 +32,15 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Total Users {{total}}</h4>
-                    <h6 class="card-subtitle">Registered users in the application</h6>
+                    <h4 class="card-title">Total Employees {{total}}</h4>
+                    <h6 class="card-subtitle">Registered employees in the application</h6>
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered table-responsive">
                             <thead>
                                 <tr>
+                                    <th class="d-sm-none d-none d-md-block">First name</th>
                                     <th class="w100">Email</th>
-                                    <th>First name</th>
-                                    <th>Last name</th>
+                                    <th class="d-sm-none d-none d-md-block">Last name</th>
                                     <th class="w140">Role</th>
                                     <th class="w100">Salary</th>
                                     <th class="text-nowrap w100">Action</th>
@@ -49,13 +49,13 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let user of users;let i = index">
-                                    <!-- <td>{{user.imageURL}}</td> -->
+                                    <td class="d-sm-none d-none d-md-block">{{user.user.firstName}}</td>
+                                    
                                     <td class="text-center" >
                                         {{user.user.emailAddress}} {{i}}
                                     </td>
     
-                                    <td>{{user.user.firstName}}</td>
-                                    <td>{{user.user.lastName}}</td>
+                                    <td class="d-sm-none d-none d-md-block">{{user.user.lastName}}</td>
                                     <td>
                                         <select class="form-control w140" 
                                             [(ngModel)]="user.role"
@@ -64,16 +64,12 @@
                                             <option value="ADMIN_ROLE">Admin</option>
                                             <option value="USER_ROLE">User</option>
                                         </select>
-                                        <!-- {{user.role}} -->
                                     </td>
                                     <td>
                                         $<app-salary-input [user]=user #txtSalary 
                                             (onNewSalary)="loadUsers()"
                                         
                                         ></app-salary-input>
-
-
-                                        <!-- <span *ngIf="!user.user.status"class="label label-info">Inactive</span>   (keyup.enter)="updateSalary(user,txtSalary.value)"-->
                                     </td>
                                     
                                     <td class="text-center">
@@ -112,5 +108,11 @@
             </div>
         </div>
     </div>
+    <div *ngIf="!employeeService.hideModal">
+        <app-modal (onUserUpdated) = "refreshScreen($event)">
+        </app-modal>
     
+    </div>
 </div>
+
+

@@ -53,8 +53,19 @@
 .center{
   text-align: center;
 }
+.w100{
+  width: 100px!;
+}
+
+.w140{
+  width: 140px;
+}
 
 
 /*Header*/
 
 /*HeaderEnd*/
+.hidden{
+  display:none;
+  visibility:hidden;
+}

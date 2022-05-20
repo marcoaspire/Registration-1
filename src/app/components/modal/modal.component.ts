@@ -1,4 +1,4 @@
-import { Component, ComponentRef, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Employee, User } from 'src/app/User/interfaces/interfaces';
 import { EmailValidatorService } from 'src/app/User/services/email-validator.service';
@@ -20,7 +20,11 @@ export class ModalComponent implements OnInit,OnDestroy {
 
   
 
-  @Input() user!: User; 
+  @Input() user!: User;
+  @Output() onUserUpdated:EventEmitter<boolean> = new EventEmitter(); 
+  
+  
+
   constructor(public employeeService: EmployeeService,private fb:FormBuilder,
     private emailValidator: EmailValidatorService
     ) { 
@@ -64,6 +68,7 @@ export class ModalComponent implements OnInit,OnDestroy {
           'User has been updated.',
           'success'
         ); 
+        this.onUserUpdated.emit(true);
         this.closeModal();
       },
       error: err => Swal.fire({

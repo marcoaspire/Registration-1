@@ -18,8 +18,8 @@ const routes: Routes = [
   {
     path: 'employees',
     component:EmployeesComponent,
-    canActivate: [ValidationGuard],
-    canLoad: [ValidationGuard]
+    //canActivate: [ValidationGuard],
+    //canLoad: [ValidationGuard]
   },
   {
     path: '**',

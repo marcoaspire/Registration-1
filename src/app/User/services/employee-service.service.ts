@@ -18,7 +18,7 @@ export class EmployeeService {
   public user!:User;
   private _hideModal:boolean = true;
   //public id2!:number;
-
+  public allUsers:Employee[]=[];
 
   /** Communication */
   // Observable string sources
@@ -45,11 +45,9 @@ export class EmployeeService {
 
   search(term:string){
     // http://localhost:63253/users?email=juan
-
     return this.http.get(`${base_url}/users?email=${term}`)
     .pipe(
       map((resp:any) => {
-        console.log(resp);
         return resp;
         // return this.convertUsers(resp.users);
       })
@@ -62,17 +60,7 @@ export class EmployeeService {
     return await lastValueFrom(end)
       .then(resp => {
         this.auth=resp.user;
-      });
-    /*
-    .subscribe({
-      next: employee => {
-        console.log("cambiando user");
-        
-        this.user=employee.user;
-      },
-      error: err => console.log(err)
-    });
-    */
+      });    
   }
 
   saveEmployee(user:Employee){
@@ -96,23 +84,28 @@ export class EmployeeService {
   }
 
   
+  
   loadUsers(){
     //http://localhost:63253/users
     return this.http.get<Employee[]>(`${base_url}/users`)
     /*
     .pipe(
       //delay(500),
-      map( resp =>{
-        console.log(resp);
+      map( users =>{
+        console.log("respuesta load user");
+        
+        console.log(users);
+
         
         //const users = resp.map(user => new User() )
         return {
           //users
-          resp
+          users
         };
       })
     );
     */
+    
   }
   
   

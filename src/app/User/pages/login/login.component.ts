@@ -18,7 +18,7 @@ import { EmployeeService } from '../../services/employee-service.service';
         border: none !important;
         box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
         
-        background-image: url('../../../../assets/images/bg-03.jpg');
+        /* background-image: url('../../../../assets/images/bg-03.jpg'); */
 
         
       }

@@ -40,13 +40,13 @@ export class RegistrationComponent implements OnInit {
 
 
    myForm:FormGroup = this.fb.group({
-      FirstName: [ 'Selene', [Validators.minLength(2), Validators.required,Validators.pattern(this.stringPattern)] ],
+      FirstName: [ 'Test', [Validators.minLength(2), Validators.required,Validators.pattern(this.stringPattern)] ],
       MiddleName: ['',[Validators.pattern(this.stringPattern),Validators.minLength(2)] ],
-      LastName: ['Moreno', [Validators.required,Validators.pattern(this.stringPattern) ] ],
-      EmailAddress: ['selene@gmail.com', [Validators.email,Validators.required], [this.emailValidator]  ],
+      LastName: ['Pa', [Validators.required,Validators.pattern(this.stringPattern) ] ],
+      EmailAddress: ['test@gmail.com', [Validators.email,Validators.required], [this.emailValidator]  ],
       MobilePhone:     ['2221456987',[Validators.minLength(10),Validators.pattern(this.phonePattern)]],
       Last4DigitsSSN: ['1478',[Validators.required,Validators.minLength(4),Validators.maxLength(4),Validators.pattern(this.numberPattern)]],
-     TermsandConditions : ['',Validators.requiredTrue ],
+     TermsandConditions : [true,Validators.requiredTrue ],
      EnrolledDate: [this.today,[Validators.required,isValidDate ]],
      Password        : ['123456',[Validators.required,Validators.minLength(6)]],
      ConfirmPassword : ['123456',[Validators.required]],
