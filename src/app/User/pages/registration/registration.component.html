@@ -1,5 +1,5 @@
 <!-- Section: Design Block -->
-<section class="">
+<section class="" >
   <!-- Background image -->
   <div class="p-5 bg-image" style="
         background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
@@ -8,7 +8,7 @@
   <!-- Background image -->
 
   <div class="card mx-4 mx-md-5 shadow-5-strong">
-    <div class="card-body py-5 px-md-5">
+    <div class="card-body py-3 px-md-5">
       <h2>Sign up now</h2>
       <form autocomplete="off" [formGroup]='myForm' (ngSubmit)="register()">
         <div class="row mt-3">
@@ -130,17 +130,23 @@
           </div>
         </div>
 
-        <div class="row justify-content-end">
+        <div class="row justify-content-end center">
           <button class="btn btn-primary" type="submit" [disabled]='myForm.invalid || myForm.pending'>
             Submit
           </button>
         </div>
-        <!-- <div class="flex-col-c p-t-60">
-          <a routerLink="/auth/login" class="txt2">
-             Sign in
-          </a>
-        </div> -->
-      </form>
+
+          <div class="flex-col-c p-t-60 center">
+            <br>
+            <span class="txt1 p-b-17">
+                Already have an account?
+            </span>
+            <br>
+            <a routerLink="/login" class="txt2">
+               Sign in
+            </a>
+          </div>
+        </form>
 
     </div>
   </div>

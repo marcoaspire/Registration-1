@@ -18,12 +18,11 @@ import { EmployeeService } from '../../services/employee-service.service';
         border: none !important;
         box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
         
-        /*
-        margin-top: 150px;
-        background: hsla(0, 0%, 100%, 0.8);
-        backdrop-filter: blur(30px);
-        */
+        background-image: url('../../../../assets/images/bg-03.jpg');
+
+        
       }
+
     `
   ]
 })

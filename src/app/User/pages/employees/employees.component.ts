@@ -38,6 +38,10 @@ import { EmployeeService } from '../../services/employee-service.service';
       input.invalid {
         border-color: red;
       }
+      
+      .container-login100{
+        background-image: none;
+      }
     `
   ]
 })

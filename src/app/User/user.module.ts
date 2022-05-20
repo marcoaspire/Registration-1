@@ -7,6 +7,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { EmployeesComponent } from './pages/employees/employees.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentsModule } from '../components/components.module';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { ComponentsModule } from '../components/components.module';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    ComponentsModule
+    ComponentsModule,
+    RouterModule,
+    SharedModule
 
   ],
   exports:[

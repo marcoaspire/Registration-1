@@ -1,7 +1,9 @@
 
 <!-- <app-registration></app-registration> -->
 <!-- <app-modal [item]="user"></app-modal> -->
-<div   >
+<div class="limiter">
+
+<div>
     <router-outlet></router-outlet>
 
     <div *ngIf="!employeeService.hideModal">
@@ -10,5 +12,6 @@
 
     </div>
 
-    
+        
+</div>
 </div>

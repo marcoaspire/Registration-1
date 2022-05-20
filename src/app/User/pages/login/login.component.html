@@ -27,11 +27,24 @@
     </div>
 
 
-    <div class="row justify-content-end">
+    <div class="row justify-content-end pt-4">
       <button class="btn btn-primary" type="submit" [disabled]='myForm.invalid || myForm.pending'>
-          Submit
+        Sign up
       </button>
-    </div>
+      
+      <a [routerLink]="['/reg']" class="txt2 cursor pt-4 center">
+        Open an account here
+      </a>
+    </div> 
+
+    
+
+    
+    
+      
+
+
+
   </form>
 </div>
 <pre>{{myForm.value| json}}</pre>
