@@ -11,7 +11,8 @@ import Swal from 'sweetalert2';
   ]
 })
 export class SalaryInputComponent implements OnInit {
-  @Input('user') user!: any;
+  @Input('user') user!: Employee;
+  
 
   @Output() onNewSalary = new EventEmitter<number>();
 
@@ -21,10 +22,13 @@ export class SalaryInputComponent implements OnInit {
   }
 
   updateSalary(user:Employee,salary:string)
-  {  
+  { 
+    let errorMessage="Salary must be a number greater than 0"; 
     try {
       var s = parseFloat(salary);
-      if (s>0 && s != user.salary )
+      if (s == user.salary)
+      return;
+      if (s>0 && s<1000000)
       {
         user.salary=s;
         this.employeeService.saveEmployee(user)
@@ -38,7 +42,10 @@ export class SalaryInputComponent implements OnInit {
         });
       }
       else{
-        Swal.fire('Error','Salary must be a number greater than 0','error')
+        if (s>1000000){
+          errorMessage="Salary must be less than one million"
+        }
+        Swal.fire('Error',errorMessage,'error')
         this.onNewSalary.emit(s);
       }
     } catch (error:any) {

@@ -23,7 +23,7 @@ export class RegisterService {
   register(password:string,firstName:string,lastName:string, emailAddress:string,mobilePhone:string,last4DigitsSSN:number,
     termsandConditions:boolean=true,maxLoginAttempt:number=3,status:string='Active',middleName?:string){
     const lastLogin=null;
-    const url = `${this.endPoint}/api/User/new`;
+    const url = `${this.endPoint}/api/User`;
 
     if (!middleName)
     {
@@ -59,9 +59,8 @@ export class RegisterService {
 
   }
 
-
   login(emailAddress: string, password: string){
-    const url = `${this.endPoint}/api/User`;
+    const url = `${this.endPoint}/api/Auth`;
     const body = { emailAddress, password};
     console.log(body);
 

@@ -1,3 +1,4 @@
-<input type="number" min="0" value="{{user.salary }}" 
+<input type="number" min="0" value="{{user.salary}}" 
     (keyup.enter)="updateSalary(user,s.value)" style="width:100px;"
 #s>
+<button class="btn btn-secondary btn-sm ms-2" (click)="updateSalary(user,s.value)">Save</button>

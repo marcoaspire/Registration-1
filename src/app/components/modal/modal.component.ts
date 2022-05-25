@@ -68,6 +68,8 @@ export class ModalComponent implements OnInit,OnDestroy {
           'User has been updated.',
           'success'
         ); 
+        console.log(res);
+        
         this.onUserUpdated.emit(true);
         this.closeModal();
       },

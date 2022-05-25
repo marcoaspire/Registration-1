@@ -43,25 +43,23 @@ export class LoginComponent implements OnInit {
 
   login(){
 
-    console.log(this.myForm.value);
+    //console.log(this.myForm.value);
     const { EmailAddress,Password} = this.myForm.value;
 
 
     this.registerService.login(EmailAddress,Password).subscribe(
       resp => {
-        console.log("recieved:");
 
-        console.log(resp);
+        //console.log(resp);
 
         if (resp.ok===true)
         {
-          console.log(resp);
           
           this.employeeService.setAuth(resp.id);
           localStorage.setItem('id', resp.id);
 
           this.router.navigateByUrl('/employees');
-          console.log("redirect to home");
+          //console.log("redirect to home");
 
         }
         else{

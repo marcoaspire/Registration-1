@@ -71,16 +71,57 @@ export class EmployeeService {
     return this.http.put(`${base_url}/api/Employee/${user.user.userID}`, user);
   }
 
-  updateUser(id:number,user:User){
+  updateUser2(id:number,user:User){
     //http://localhost:63253/api/User/12566
+    console.log(user);
+    
     user ={
       ...user,
       userID:id
     }
-    console.log(user);
-    //return of(true);
+    console.log("user data to update");
+    
+    console.log(user.password);
+    
+
+
     return this.http.put(`${base_url}/api/User/${id}`, user);
 
+  }
+
+
+  updateUser(id:number,user:User){
+    let changes:any[]=[];
+    //iterate object to get keys and their value
+    /*
+              [
+              {
+                "path": "last4DigitsSSN",
+                "op": "replace",
+                "value": 4123 
+              },
+              {
+                "path": "termsandConditions",
+                "op": "replace",
+                "value": true
+              }
+            ]
+    */
+   
+    let claves = Object.keys(user); 
+    for(let i=0; i< claves.length; i++){
+      let clave:string = claves[i];
+      let change = {
+        path:clave, 
+        op: "replace",
+        value:user[clave as keyof User]
+      };
+      changes.push(change);
+    }    
+
+
+    return this.http.patch(`${base_url}/api/User/${id}`, changes);
+    
   }
 
   
